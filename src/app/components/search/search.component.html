@@ -1,0 +1,30 @@
+<div>
+    <div class="search">
+        <label for="subjectSearch"></label>
+        <input id="subjectSearch" type="text" placeholder="Subject..." />
+        <label for="courseSearch"></label>
+        <input id="courseSearch" type="text" placeholder="Course code..." />
+        <label for="componentSearch"></label>
+        <input id="componentSearch" type="text" placeholder="Component..." />
+        <button (click)="onSearch()">Search</button>
+    </div>
+
+    <div id="timetableUI" class="search">
+        <label for="timetableInput"></label>
+        <input id="timetableInput" type="text" placeholder="Enter a timetable..." />
+        <button (click)="addTimetable()">Add Timetable</button>
+        <button (click)="findTimetable()">Find Timetable</button>
+        <button (click)="addCourse()">Add Course</button>
+    </div>
+
+
+    <app-course *ngFor="let course of courses" [course]="course">
+    </app-course>
+
+    <div class = 'header'>
+        <h1>{{timetableName}}</h1>
+    </div>
+
+    <app-timetableui *ngFor="let course of timetableCourses" [course]="course"></app-timetableui>
+
+</div>

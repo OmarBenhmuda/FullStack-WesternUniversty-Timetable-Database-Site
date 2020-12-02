@@ -1,0 +1,51 @@
+{
+  "timetables": [
+    {
+      "timetable_name": "timetable1",
+      "courses": [
+        {
+          "subject": "ACRURSCI",
+          "catalog_nbr": "1021B"
+        }
+      ]
+    },
+    {
+      "timetable_name": "timetable3",
+      "courses": [
+        {
+          "subject": "ACRURSCI",
+          "catalog_nbr": "1021B"
+        },
+        {
+          "subject": "ACRURSCI",
+          "catalog_nbr": "1021B"
+        },
+        {
+          "subject": "APPLMATH",
+          "catalog_nbr": "2222"
+        },
+        {
+          "subject": "hllo",
+          "catalog_nbr": "112"
+        },
+        {
+          "subject": "asd",
+          "catalog_nbr": "add"
+        }
+      ]
+    },
+    {},
+    {
+      "timetable_name": "aaa",
+      "courses": []
+    },
+    {
+      "timetable_name": "aa",
+      "courses": []
+    },
+    {
+      "timetable_name": "aaasd",
+      "courses": []
+    }
+  ]
+}

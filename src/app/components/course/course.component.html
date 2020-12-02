@@ -1,0 +1,18 @@
+<ul class='content'>
+    <li class='listitem'>
+        <h1>
+            {{course.subject + ' ' + course.catalog_nbr}}
+        </h1>
+        <h1>
+            {{course.course_info[0].ssr_component}}
+        </h1>
+        <p>
+            {{ "Class Number: " + course.course_info[0].class_nbr + ",\n " +
+            "Start Time: " + course.course_info[0].start_time + ",\n " +
+            "End Time: " + course.course_info[0].end_time + ",\n " +
+            "Location: " + course.course_info[0].facility_ID + ",\n " +
+            "Days: " + course.course_info[0].days + ",\n " +
+            "Section: " + course.course_info[0].class_section}}
+        </p>
+    </li>
+</ul>

@@ -1,0 +1,54 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    background: #3b3b46;
+    padding: 5px;
+}
+
+.header h1 {
+    margin: 0;
+    color: white;
+    font-size: 60px;
+}
+
+.lec {
+    margin: 0;
+    color: yellowgreen;
+    font-size: 20px;
+}
+
+.tut {
+    margin: 0;
+    color: yellow;
+    font-size: 20px;
+}
+
+.lab {
+    margin: 0;
+    color: red;
+    font-size: 20px;
+}
+
+.search {
+    margin: auto;
+    width: fit-content;
+    padding: 10px;
+}
+
+.listitem {
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    background: #646478;
+    color: white;
+    line-height: 25px;
+    border-radius: 50px;
+}
+
+.content {
+    margin-bottom: 20px;
+}

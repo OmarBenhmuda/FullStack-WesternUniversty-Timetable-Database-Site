@@ -1,4 +1,24 @@
 <div class="header">
-    <h1>SE 3316 Lab 4: Angular</h1>
+    <h1>SE 3316 Lab 5</h1>
 </div>
-<app-search></app-search>
+
+<div class="search">
+    <label for="name"></label>
+    <input id="name" type="text" placeholder="Full Name..." />
+    <label for="email"></label>
+    <input id="email" type="text" placeholder="email..." />
+    <label for="password"></label>
+    <input id="password" type="text" placeholder="password..." />
+    <label for="repassword"></label>
+    <input id="repassword" type="text" placeholder="re-enter password..." />
+    <button (click)="signup()">SignUp</button>
+</div>
+
+<div class="search">
+    <label for="email"></label>
+    <input id="email" type="text" placeholder="email..." />
+    <label for="password"></label>
+    <input id="password" type="text" placeholder="password..." />
+    <button (click)="signin()">SignIn</button>
+</div>
+<!-- put stuff here thatll be in the page but check if the user is logged in -->

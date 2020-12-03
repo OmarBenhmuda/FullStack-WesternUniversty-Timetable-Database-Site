@@ -2,19 +2,19 @@
     <h1>SE 3316 Lab 5</h1>
 </div>
 
-<div class="search">
+<div *ngIf="!isSignedIn" class="search">
     <label for="name"></label>
     <input id="name" type="text" placeholder="Full Name..." />
-    <label for="email"></label>
-    <input id="email" type="text" placeholder="email..." />
-    <label for="password"></label>
-    <input id="password" type="text" placeholder="password..." />
+    <label for="signup_email"></label>
+    <input id="signup_email" type="text" placeholder="email..." />
+    <label for="signup_password"></label>
+    <input id="signup_password" type="text" placeholder="password..." />
     <label for="repassword"></label>
     <input id="repassword" type="text" placeholder="re-enter password..." />
     <button (click)="signup()">SignUp</button>
 </div>
 
-<div class="search">
+<div *ngIf="!isSignedIn" class="search">
     <label for="email"></label>
     <input id="email" type="text" placeholder="email..." />
     <label for="password"></label>
@@ -22,3 +22,7 @@
     <button (click)="signin()">SignIn</button>
 </div>
 <!-- put stuff here thatll be in the page but check if the user is logged in -->
+<div *ngIf="isSignedIn" class="logout">
+    <h1>{{name}}</h1>
+    <button (click)="logout()">Logout</button>
+</div>

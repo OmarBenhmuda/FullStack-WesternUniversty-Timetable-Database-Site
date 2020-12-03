@@ -22,7 +22,8 @@ export class CourseService {
 
 
 
-  url: string = ip + ':3000/api/'
+  // url: string = ip + ':3000/api/'
+  url: string = "http://localhost:3000/api/"
 
   getAll() {
     return this.http.get<Course[]>(this.url);
@@ -34,7 +35,7 @@ export class CourseService {
   getSpecific(subject: string, code: string, component: string) {
     let url: string
     if (subject != '' && code != '' && component != '') {
-      url = this.url + subject + '/' + code + '/' + component;
+      url = this.url + 'getCourses/' + subject + '/' + code + '/' + component;
     } else if (subject != '' && code != '' && component == '') {
       url = this.url + subject + '/' + code;
     } else if (subject != '' && code == '' && component == '') {
@@ -59,5 +60,13 @@ export class CourseService {
 
   addCourse(timetable) {
     return this.http.put(this.url + 'q5', timetable, httpOptions)
+  }
+
+  addUser(user) {
+    return this.http.post(this.url + 'addUser', user, httpOptions)
+  }
+
+  getUser(email) {
+    return this.http.get(this.url + "getUser/" + email)
   }
 }

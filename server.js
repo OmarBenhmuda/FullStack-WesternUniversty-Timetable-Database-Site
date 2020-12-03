@@ -9,7 +9,7 @@ const db = lowDb(new FileSync('./Lab3-timetable-data.json'));
 const userdb = lowDb(new FileSync('./user-timetable.json'));
 
 //Initializing object to user timetable
-userdb.defaults({ timetables: [] }).write();
+userdb.defaults({ users: [] }).write();
 
 
 
@@ -132,7 +132,7 @@ app.post('/api/q4', (req, res) => {
     while (typeof userdb.get(`timetables[${i}]`).value() !== "undefined") {
         if (userdb.get(`timetables[${i}]['timetable_name']`).value() === timetable['timetable_name']) {
             timeTableExists = true;
-            
+
             break;
         }
         i++;
@@ -269,7 +269,8 @@ app.delete('/api/q9', (req, res) => {
 })
 
 //Getting proper course info for the front end
-app.get('/api/:subject/:catalog_nbr?/:component?', (req, res) => {
+app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
+    console.log("hljs-emphasisas")
     let courseExists = false;
     const subject = req.params.subject;
     const catalog_nbr = req.params.catalog_nbr;
@@ -343,6 +344,31 @@ app.get('/api', (req, res) => {
         i++;
     }
     return res.send(data);
+
+})
+
+
+//adding a user
+app.post('/api/addUser', (req, res) => {
+    const user = req.body;
+    userdb.get('users').push(user).write();
+
+})
+
+app.get('/api/getUser/:email', (req, res) => {
+    const email = req.params.email;
+
+    let i = 0;
+
+    //Going into the user timetable data to check if the timetable the user wants to add already exists
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+            const user = userdb.get(`users[${i}]`).value();
+            return res.send(user);
+        }
+        i++;
+    }
+    return res.status(404).send("User not found")
 
 })
 

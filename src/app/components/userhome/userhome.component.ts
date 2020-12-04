@@ -79,6 +79,24 @@ export class UserhomeComponent implements OnInit {
 
   }
 
+  addCourse() {
+    const name = sanitize((<HTMLInputElement>document.getElementById("addCourseTimetableName")).value.trim())
+    const subject = sanitize((<HTMLInputElement>document.getElementById("subjectName")).value.trim())
+    const code = sanitize((<HTMLInputElement>document.getElementById("courseCode")).value.trim())
+
+    const info = {
+      name: name,
+      course: {
+        subject: subject,
+        catalog_nbr: code
+      },
+      date: new Date()
+    }
+
+    this.courseService.addCourse(info).subscribe();
+
+  }
+
 }
 
 

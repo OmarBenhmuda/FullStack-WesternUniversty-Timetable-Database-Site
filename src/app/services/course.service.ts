@@ -59,10 +59,6 @@ export class CourseService {
 
   }
 
-  addCourse(timetable) {
-    return this.http.put(this.url + 'q5', timetable, httpOptions)
-  }
-
   addUser(user) {
     return this.http.post(this.url + 'addUser', user, httpOptions)
   }
@@ -78,4 +74,8 @@ export class CourseService {
   deleteTimetable(info){
     return this.http.post(`${this.url}deleteTimetable`, info, httpOptions)
   }
+  addCourse(info) {
+    return this.http.post(`${this.url}addCourse`, info, httpOptions)
+  }
+
 }

@@ -526,6 +526,7 @@ app.post('/api/addCourse', (req, res) => {
             let j = 0;
             while (typeof userdb.get(`users[${i}]['timetables'][${j}]`).value() !== "undefined") {
                 if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === name) {
+                    console.log("sss")
                     userdb.get(`users[${i}]['timetables'][${j}]['courses']`).push(course).write();
                     userdb.set(`users[${i}]['timetables'][${j}]['lastEdited']`, date)
 

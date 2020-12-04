@@ -26,9 +26,9 @@
         <div class="search">
             <button (click)="addCourseView()">Add course to Timetable</button>
             <div *ngIf="showAddCourse">
-                <input id="timetableInput" type="text" placeholder="Enter a timetable..." />
-                <button (click)="addTimetable()">Add Timetable</button>
-                <button (click)="findTimetable()">Find Timetable</button>
+                <input id="addCourseTimetableName" type="text" placeholder="Timetable name..." />
+                <input id="subjectName" type="text" placeholder="Subject name..." />
+                <input id="courseCode" type="text" placeholder="Course code..." />
                 <button (click)="addCourse()">Add Course</button>
             </div>
         </div>

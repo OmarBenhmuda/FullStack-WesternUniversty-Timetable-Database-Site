@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseApp } from '@angular/fire';
+import { AdminService } from './services/admin.service';
 import { CourseService } from './services/course.service';
 import { FirebaseService } from './services/firebase.service';
 
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
   type: string;
 
   isSignedIn = false
-  constructor(public firebaseService: FirebaseService, public courseService: CourseService) { }
+  constructor(public firebaseService: FirebaseService, public courseService: CourseService, public adminService: AdminService) { }
   ngOnInit() {
     this.updateUI();
   }
@@ -90,9 +91,16 @@ export class AppComponent implements OnInit {
 
   }
 
-  updatePassword(){
+  updatePassword() {
     const newpassword = sanitize((<HTMLInputElement>document.getElementById("newpassword")).value);
     this.firebaseService.updatePass(newpassword);
+  }
+
+
+  makeAdmin() {
+    const email = sanitize((<HTMLInputElement>document.getElementById("newAdminEmail")).value);
+    this.adminService.makeAdmin(email).subscribe();
+
   }
 }
 

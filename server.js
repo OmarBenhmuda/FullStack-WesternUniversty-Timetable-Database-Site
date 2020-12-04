@@ -391,10 +391,24 @@ app.get('/api/getUser/:email', (req, res) => {
 
     let i = 0;
 
-    //Going into the user timetable data to check if the timetable the user wants to add already exists
     while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
         if (userdb.get(`users[${i}]['email']`).value() === email) {
             const user = userdb.get(`users[${i}]`).value();
+            return res.send(user);
+        }
+        i++;
+    }
+    return res.status(404).send("User not found")
+
+})
+
+app.post('/api/makeAdmin', (req, res) => {
+    const email = req.body;
+    let i = 0;
+
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+            userdb.set(`user[${i}]['type']`, 'admin').write();
             return res.send(user);
         }
         i++;

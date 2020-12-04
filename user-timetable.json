@@ -17,6 +17,12 @@
       "name": "Hello",
       "timetables": [],
       "type": "user"
+    },
+    {
+      "email": "admin@admin.com",
+      "name": "First Admin",
+      "timetables": [],
+      "type": "admin"
     }
   ]
 }

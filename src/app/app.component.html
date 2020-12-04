@@ -25,19 +25,27 @@
 
 
 <!-- if the user is signed in-->
-<div *ngIf="isSignedIn" class="logout">
+<div *ngIf="isSignedIn">
 
-    <h1>{{name}}</h1>
-    <label for="newpassword"></label>
-    <input id="newpassword" type="password" placeholder="new password..." />
-    <button (click)="updatePassword()">Update Password</button>
-    <button (click)="logout()">Logout</button>
+    <div class="logout">
+        <h1>{{name}}</h1>
+        <label for="newpassword"></label>
+        <input id="newpassword" type="password" placeholder="new password..." />
+        <button (click)="updatePassword()">Update Password</button>
+        <button (click)="logout()">Logout</button>
 
-    <!-- if the user is an admin-->
-    <div *ngIf="type=admin">
-        <label for="newAdminEmail"></label>
-        <input id="newAdminEmail" type="email" placeholder="email of new admin..." />
-        <button (click)="makeAdmin()">Make Admin</button>
+        <!-- if the user is an admin display this div-->
+        <div *ngIf="isAdmin">
+            <label for="newAdminEmail"></label>
+            <input id="newAdminEmail" type="email" placeholder="email of new admin..." />
+            <button (click)="makeAdmin()">Make Admin</button>
+        </div>
+    </div>
+
+
+    <!-- if the user is a normal user display this div-->
+    <div *ngIf="isUser">
+        <app-userhome></app-userhome>
     </div>
 </div>
 

@@ -18,6 +18,14 @@ export class AppComponent implements OnInit {
       this.courseService.getUser(userData.email).subscribe(res => {
         this.name = res['name']
         this.type = res['type']
+        if (this.type == 'admin') {
+          this.isAdmin = true;
+          this.isUser = false;
+        }
+        if (this.type == 'user') {
+          this.isUser = true;
+          this.isAdmin = false;
+        }
       });
       this.isSignedIn = true
     }
@@ -25,16 +33,23 @@ export class AppComponent implements OnInit {
       this.name = "";
       this.type = "";
       this.isSignedIn = false
+      this.isAdmin = false;
+      this.isUser = false;
     }
   }
 
   name: string;
   type: string;
 
+
+  isAdmin = false;
+  isUser = false;
   isSignedIn = false
   constructor(public firebaseService: FirebaseService, public courseService: CourseService, public adminService: AdminService) { }
   ngOnInit() {
     this.updateUI();
+
+    console.log(this.type)
   }
 
   async signup() {
@@ -99,7 +114,7 @@ export class AppComponent implements OnInit {
 
   makeAdmin() {
     const email = sanitize((<HTMLInputElement>document.getElementById("newAdminEmail")).value);
-    this.adminService.makeAdmin(email).subscribe();
+    this.adminService.makeAdmin({ email: email }).subscribe();
 
   }
 }

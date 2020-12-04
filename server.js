@@ -3,10 +3,12 @@ const cors = require("cors");
 const lowDb = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const bodyParser = require("body-parser");
+const { ok } = require("assert");
 
 //Using lowDb to hold the backend data
 const db = lowDb(new FileSync('./Lab3-timetable-data.json'));
 const userdb = lowDb(new FileSync('./user-timetable.json'));
+const reviewsdb = lowDb(new FileSync('./reviews.json'));
 
 //Initializing object to user timetable
 userdb.defaults({ users: [] }).write();
@@ -403,18 +405,49 @@ app.get('/api/getUser/:email', (req, res) => {
 })
 
 app.post('/api/makeAdmin', (req, res) => {
-    const email = req.body;
+    console.log('asdad')
+    const email = req.body.email;
     let i = 0;
 
     while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
         if (userdb.get(`users[${i}]['email']`).value() === email) {
-            userdb.set(`user[${i}]['type']`, 'admin').write();
-            return res.send(user);
+            userdb.set(`users[${i}].type`, 'admin').write();
+            return res.status(ok);
         }
         i++;
     }
     return res.status(404).send("User not found")
 
+
+
 })
 
+
+app.post('/api/addReview', (req, res) => {
+    const reviewedBy = req.params.reviewedBy;
+    const courseSubject = req.params.courseSubject;
+    const courseNbr = req.params.courseNbr;
+    const date = req.params.date;
+    const msg = req.params.mgs;
+
+    let i = 0;
+    while (true) {
+        if (typeof reviewsdb.get(`reviews[${i}]`).value() == "undefined") {
+            const review = {
+                id: i,
+                reviewedBy: reviewedBy,
+                courseSubject: courseSubject,
+                courseNbr: courseNbr,
+                date: date,
+                msg: msg
+            }
+
+            reviewsdb.get('reviews').push(review).write();
+            res.json({ success: true });
+
+        }
+
+    }
+
+})
 

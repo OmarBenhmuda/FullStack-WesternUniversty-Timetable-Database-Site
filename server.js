@@ -460,20 +460,52 @@ app.post('/api/addTimetable', (req, res) => {
 
     while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
         if (userdb.get(`users[${i}]['email']`).value() === email) {
+
             let j = 0;
-            while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
-                if (userdb.get(`users[${i}]['timetable'][${j}]['name']`).value() === name) {
+            while (typeof userdb.get(`users[${i}]['timetables'][${j}]`).value() !== "undefined") {
+                if (j == 19) {
+                    return res.send("Max")
+                }
+                if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === name) {
                     return res.status(403).send("Timetable already exists");
                 }
 
                 j++
             }
-
-            userdb.get(`users[${i}]['timetable']`).push(timetable).write();
+            userdb.get(`users[${i}]['timetables']`).push(timetable).write();
             return res.status(ok);
         }
         i++;
     }
     return res.status(404).send("User not found");
 
+})
+
+app.post('/api/deleteTimetable', (req, res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+
+    let i = 0;
+
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+            let j = 0;
+            while (typeof userdb.get(`users[${i}]['timetables'][${j}]`).value() !== "undefined") {
+
+
+                if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === name) {
+
+
+
+                    userdb.get(`users[${i}]['timetables']`).remove({ name: name }).write();
+                }
+
+                j++
+            }
+
+            return res.status(404).send("Timetable Not Found");
+        }
+        i++;
+    }
+    return res.status(404).send("User not found");
 })

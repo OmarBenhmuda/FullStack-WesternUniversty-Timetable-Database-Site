@@ -74,4 +74,8 @@ export class CourseService {
   addTimetable(timetable) {
     return this.http.post(`${this.url}addTimetable`, timetable, httpOptions)
   }
+
+  deleteTimetable(info){
+    return this.http.post(`${this.url}deleteTimetable`, info, httpOptions)
+  }
 }

@@ -8,7 +8,7 @@
     </div>
 
 
-    <div id="timetableUI">
+    <div id="timetableUI" class="timetableButtons">
 
         <div class="search">
             <button (click)="addTimetableView()">Add a new Timetable</button>
@@ -18,7 +18,7 @@
                 <select name="visibility" id="visibility">
                     <option value="private">Private</option>
                     <option value="public">Public</option>
-                  </select>
+                </select>
                 <button (click)="addTimetable()">Add Timetable</button>
             </div>
         </div>
@@ -33,6 +33,13 @@
             </div>
         </div>
 
+        <div class="search">
+            <button (click)="deleteTimetableView()">Delete an existing Timetable</button>
+            <div *ngIf="showDeleteTimetable">
+                <input id="deleteTimetableName" type="text" placeholder="Enter a timetable..." />
+                <button (click)="deleteTimetable()">Delete Timetable</button>
+            </div>
+        </div>
 
 
 

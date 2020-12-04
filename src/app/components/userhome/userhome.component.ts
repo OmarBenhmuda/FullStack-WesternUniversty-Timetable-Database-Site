@@ -12,7 +12,8 @@ export class UserhomeComponent implements OnInit {
 
   showAddTimetable = false;
   showAddCourse = false;
-  constructor(private courseService: CourseService) { }
+  showDeleteTimetable = false;
+  constructor(public courseService: CourseService) { }
 
   ngOnInit(): void {
   }
@@ -30,18 +31,25 @@ export class UserhomeComponent implements OnInit {
     }
   }
 
+  //These buttons control the divs that are shown for the timetable UI
   addTimetableView() {
     this.showAddTimetable = !this.showAddTimetable;
   }
   addCourseView() {
     this.showAddCourse = !this.showAddCourse;
   }
+  deleteTimetableView() {
+    this.showDeleteTimetable = !this.showDeleteTimetable;
+  }
+
 
   addTimetable() {
+
     const userData = JSON.parse(localStorage.getItem('user'))
     const name = sanitize((<HTMLInputElement>document.getElementById("addTimetableName")).value.trim())
     const desc = sanitize((<HTMLInputElement>document.getElementById("addTimetableDesc")).value.trim())
     const visiblity = sanitize((<HTMLInputElement>document.getElementById("visibility")).value)
+    const lastEdited = new Date();
 
     const timetable = {
       timetable: {
@@ -54,7 +62,20 @@ export class UserhomeComponent implements OnInit {
       name: name
     }
 
-    this.courseService.addTimetable(timetable).subscribe;
+    this.courseService.addTimetable(timetable).subscribe();
+  }
+
+  deleteTimetable() {
+    const name = sanitize((<HTMLInputElement>document.getElementById("deleteTimetableName")).value.trim())
+    const userData = JSON.parse(localStorage.getItem('user'));
+
+    const info = {
+      name: name,
+      email: userData.email
+    }
+
+    this.courseService.deleteTimetable(info).subscribe();
+
   }
 
 }

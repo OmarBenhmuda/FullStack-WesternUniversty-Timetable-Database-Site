@@ -46,6 +46,11 @@ html, body {
     padding: 5px;
 }
 
+.timetableButtons {
+    display: inline-flex;
+    margin: auto;
+}
+
 .listitem {
     padding: 20px;
     margin: 10px;

@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div>
+    <div class="search">
+        <label for="subjectSearch"></label>
+        <input id="subjectSearch" type="text" placeholder="Subject..." />
+        <label for="courseSearch"></label>
+        <input id="courseSearch" type="text" placeholder="Course code..." />
+        <label for="componentSearch"></label>
+        <input id="componentSearch" type="text" placeholder="Component..." />
+        <button (click)="onSearch()">Search</button>
+    </div>
+
+
+    <app-course *ngFor="let course of courses" [course]="course">
+    </app-course>
+
+</div>

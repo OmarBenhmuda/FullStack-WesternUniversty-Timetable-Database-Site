@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from 'src/app/models/Course';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  courses: Course[]
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
   }
 
+  onSearch() {
+    const subject = sanitize((<HTMLInputElement>document.getElementById("subjectSearch")).value.trim().toUpperCase())
+    const course = sanitize((<HTMLInputElement>document.getElementById("courseSearch")).value.trim().toUpperCase())
+    const comp = sanitize((<HTMLInputElement>document.getElementById("componentSearch")).value.trim().toUpperCase())
+
+
+    this.courseService.getSpecific(subject, course, comp).subscribe(res => this.courses = res)
+  }
+
+}
+
+
+
+//For input sanitization
+function sanitize(string) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    "/": '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match) => (map[match]));
 }

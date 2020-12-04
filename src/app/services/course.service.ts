@@ -37,9 +37,9 @@ export class CourseService {
     if (subject != '' && code != '' && component != '') {
       url = this.url + 'getCourses/' + subject + '/' + code + '/' + component;
     } else if (subject != '' && code != '' && component == '') {
-      url = this.url + subject + '/' + code;
+      url = this.url + 'getCourses/' + subject + '/' + code;
     } else if (subject != '' && code == '' && component == '') {
-      url = this.url + subject
+      url = this.url + 'getCourses/' + subject
     } else {
       alert("enter a subject")
       return;

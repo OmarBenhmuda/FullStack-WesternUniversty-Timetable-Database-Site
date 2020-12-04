@@ -270,7 +270,6 @@ app.delete('/api/q9', (req, res) => {
 
 //Getting proper course info for the front end
 app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
-    console.log("hljs-emphasisas")
     let courseExists = false;
     const subject = req.params.subject;
     const catalog_nbr = req.params.catalog_nbr;
@@ -283,7 +282,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
     let i = 0;
     if (typeof subject !== "undefined" && typeof catalog_nbr !== "undefined" && typeof component !== "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).value() === subject && db.get(`[${i}]['catalog_nbr']`).value() === catalog_nbr && db.get(`[${i}]['course_info'][0][ssr_component]`).value() === component) {
+            if (db.get(`[${i}]['subject']`).includes(subject).value() && db.get(`[${i}]['catalog_nbr']`).includes(catalog_nbr).value() && db.get(`[${i}]['course_info'][0][ssr_component]`).includes(component).value()) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;
@@ -302,7 +301,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
 
     if (typeof subject !== "undefined" && typeof catalog_nbr !== "undefined" && typeof component === "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).value() === subject && db.get(`[${i}]['catalog_nbr']`).value() === catalog_nbr) {
+            if (db.get(`[${i}]['subject']`).includes(subject).value() && db.get(`[${i}]['catalog_nbr']`).includes(catalog_nbr).value()) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;
@@ -319,7 +318,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
 
     if (typeof subject !== "undefined" && typeof catalog_nbr === "undefined" && typeof component === "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).value() === subject) {
+            if (db.get(`[${i}]['subject']`).includes(subject).value()) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;

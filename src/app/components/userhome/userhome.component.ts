@@ -83,6 +83,7 @@ export class UserhomeComponent implements OnInit {
     const name = sanitize((<HTMLInputElement>document.getElementById("addCourseTimetableName")).value.trim())
     const subject = sanitize((<HTMLInputElement>document.getElementById("subjectName")).value.trim())
     const code = sanitize((<HTMLInputElement>document.getElementById("courseCode")).value.trim())
+    const userData = JSON.parse(localStorage.getItem('user'));
 
     const info = {
       name: name,
@@ -90,7 +91,8 @@ export class UserhomeComponent implements OnInit {
         subject: subject,
         catalog_nbr: code
       },
-      date: new Date()
+      date: new Date(),
+      email: userData.email
     }
 
     this.courseService.addCourse(info).subscribe();

@@ -53,10 +53,6 @@ export class CourseService {
   }
 
 
-  addTimetable(timetable) {
-    return this.http.post<Timetable>(this.url + 'q4', timetable, httpOptions)
-  }
-
   findTimetable(timetable) {
     const url = this.url + 'q6/' + timetable
     return this.http.get(url);
@@ -73,5 +69,9 @@ export class CourseService {
 
   getUser(email) {
     return this.http.get(this.url + "getUser/" + email)
+  }
+
+  addTimetable(timetable){
+
   }
 }

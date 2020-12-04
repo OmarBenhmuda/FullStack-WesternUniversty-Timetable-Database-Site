@@ -1,14 +1,42 @@
 <div>
     <div class="search">
-        <label for="subjectSearch"></label>
         <input id="subjectSearch" type="text" placeholder="Subject..." />
-        <label for="courseSearch"></label>
         <input id="courseSearch" type="text" placeholder="Course code..." />
-        <label for="componentSearch"></label>
         <input id="componentSearch" type="text" placeholder="Component..." />
-        <label for="keywordSearch"></label>
         <input id="keywordSearch" type="text" placeholder="Keyword..." />
         <button (click)="onSearch()">Search</button>
+    </div>
+
+
+    <div id="timetableUI">
+
+        <div class="search">
+            <button (click)="addTimetableView()">Add a new Timetable</button>
+            <div *ngIf="showAddTimetable">
+                <input id="addTimetableName" type="text" placeholder="Name..." />
+                <input id="addTimetableDesc" type="text" placeholder="Description..." />
+                <select name="visibility" id="visibility">
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                  </select>
+                <button (click)="addTimetable()">Add Timetable</button>
+            </div>
+        </div>
+
+        <div class="search">
+            <button (click)="addCourseView()">Add course to Timetable</button>
+            <div *ngIf="showAddCourse">
+                <input id="timetableInput" type="text" placeholder="Enter a timetable..." />
+                <button (click)="addTimetable()">Add Timetable</button>
+                <button (click)="findTimetable()">Find Timetable</button>
+                <button (click)="addCourse()">Add Course</button>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 
 

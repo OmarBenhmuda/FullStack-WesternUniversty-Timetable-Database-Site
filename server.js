@@ -451,3 +451,25 @@ app.post('/api/addReview', (req, res) => {
 
 })
 
+app.post('/api/addTimetable', (req, res) => {
+    const timetable = req.body.timetable;
+    const email = req.body.email;
+    const name = req.body.name;
+
+    let i = 0;
+
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+            let j = 0;
+            while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+                if (userdb.get(`users[${i}]['timetable'][${j}]['name']`).value() === name) {
+                    res.status(403).send("Timetable already exists");
+                }
+
+                j++
+            }
+            return res.status(ok);
+        }
+        i++;
+    }
+})

@@ -9,6 +9,9 @@ import { CourseService } from 'src/app/services/course.service';
 })
 export class UserhomeComponent implements OnInit {
   courses: Course[]
+
+  showAddTimetable = false;
+  showAddCourse = false;
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
@@ -24,6 +27,23 @@ export class UserhomeComponent implements OnInit {
       this.courseService.getKeyword(keyword).subscribe(res => this.courses = res);
     } else {
       this.courseService.getSpecific(subject, course, comp).subscribe(res => this.courses = res)
+    }
+  }
+
+  addTimetableView() {
+    this.showAddTimetable = !this.showAddTimetable;
+  }
+  addCourseView() {
+    this.showAddCourse = !this.showAddCourse;
+  }
+
+  addTimetable() {
+    const timetable = {
+      timetable: {
+
+      },
+      email: "",
+      name: ""
     }
   }
 

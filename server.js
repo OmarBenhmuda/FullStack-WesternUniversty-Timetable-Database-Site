@@ -473,7 +473,7 @@ app.post('/api/addTimetable', (req, res) => {
                 j++
             }
             userdb.get(`users[${i}]['timetables']`).push(timetable).write();
-            return res.status(ok);
+            return res.json({ success: true });
         }
         i++;
     }
@@ -498,6 +498,7 @@ app.post('/api/deleteTimetable', (req, res) => {
 
 
                     userdb.get(`users[${i}]['timetables']`).remove({ name: name }).write();
+                    return res.json({ success: true });
                 }
 
                 j++
@@ -508,4 +509,36 @@ app.post('/api/deleteTimetable', (req, res) => {
         i++;
     }
     return res.status(404).send("User not found");
+})
+
+app.post('/api/addCourse', (req, res) => {
+    const name = req.body.name;
+    const course = req.body.course;
+    const date = req.body.date;
+    const email = req.body.email;
+
+
+    let i = 0;
+
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+
+            let j = 0;
+            while (typeof userdb.get(`users[${i}]['timetables'][${j}]`).value() !== "undefined") {
+                if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === name) {
+                    userdb.get(`users[${i}]['timetables'][${j}]['courses']`).push(course).write();
+                    userdb.set(`users[${i}]['timetables'][${j}]['lastEdited']`, date)
+
+                    return res.json({ success: true });
+                }
+
+                j++
+            }
+            return res.status(404).send("Timetable does not exists");
+            
+        }
+        i++;
+    }
+    return res.status(404).send("User not found");
+
 })

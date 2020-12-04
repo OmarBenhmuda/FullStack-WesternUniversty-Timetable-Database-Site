@@ -56,7 +56,8 @@ export class UserhomeComponent implements OnInit {
         name: name,
         desc: desc,
         visibility: visiblity,
-        courses: []
+        courses: [],
+        lastEdited: lastEdited
       },
       email: userData.email,
       name: name

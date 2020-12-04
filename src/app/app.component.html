@@ -8,9 +8,9 @@
     <label for="signup_email"></label>
     <input id="signup_email" type="text" placeholder="email..." />
     <label for="signup_password"></label>
-    <input id="signup_password" type="text" placeholder="password..." />
+    <input id="signup_password" type="password" placeholder="password..." />
     <label for="repassword"></label>
-    <input id="repassword" type="text" placeholder="re-enter password..." />
+    <input id="repassword" type="password" placeholder="re-enter password..." />
     <button (click)="signup()">SignUp</button>
 </div>
 
@@ -18,12 +18,15 @@
     <label for="email"></label>
     <input id="email" type="text" placeholder="email..." />
     <label for="password"></label>
-    <input id="password" type="text" placeholder="password..." />
+    <input id="password" type="password" placeholder="password..." />
     <button (click)="signin()">SignIn</button>
 </div>
 <!-- put stuff here thatll be in the page but check if the user is logged in -->
 <div *ngIf="isSignedIn" class="logout">
     <h1>{{name}}</h1>
+    <label for="newpassword"></label>
+    <input id="newpassword" type="password" placeholder="new password..." />
+    <button (click)="updatePassword()">Update Password</button>
     <button (click)="logout()">Logout</button>
 </div>
 

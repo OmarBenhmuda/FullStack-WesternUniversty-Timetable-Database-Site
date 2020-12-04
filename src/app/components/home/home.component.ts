@@ -18,10 +18,16 @@ export class HomeComponent implements OnInit {
     const subject = sanitize((<HTMLInputElement>document.getElementById("subjectSearch")).value.trim().toUpperCase())
     const course = sanitize((<HTMLInputElement>document.getElementById("courseSearch")).value.trim().toUpperCase())
     const comp = sanitize((<HTMLInputElement>document.getElementById("componentSearch")).value.trim().toUpperCase())
+    const keyword = sanitize((<HTMLInputElement>document.getElementById("keywordSearch")).value.trim().toUpperCase())
 
-
-    this.courseService.getSpecific(subject, course, comp).subscribe(res => this.courses = res)
+    if ((subject + course + comp) == "" && keyword != "") {
+      this.courseService.getKeyword(keyword).subscribe(res => this.courses = res);
+    } else {
+      this.courseService.getSpecific(subject, course, comp).subscribe(res => this.courses = res)
+    }
   }
+
+ 
 
 }
 

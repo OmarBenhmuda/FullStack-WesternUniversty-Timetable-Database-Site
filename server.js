@@ -282,7 +282,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
     let i = 0;
     if (typeof subject !== "undefined" && typeof catalog_nbr !== "undefined" && typeof component !== "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).includes(subject).value() && db.get(`[${i}]['catalog_nbr']`).includes(catalog_nbr).value() && db.get(`[${i}]['course_info'][0][ssr_component]`).includes(component).value()) {
+            if (db.get(`[${i}]['subject']`).value() === subject && db.get(`[${i}]['catalog_nbr']`).value() === catalog_nbr && db.get(`[${i}]['course_info'][0][ssr_component]`).value() === component) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;
@@ -301,7 +301,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
 
     if (typeof subject !== "undefined" && typeof catalog_nbr !== "undefined" && typeof component === "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).includes(subject).value() && db.get(`[${i}]['catalog_nbr']`).includes(catalog_nbr).value()) {
+            if (db.get(`[${i}]['subject']`).value() === subject && db.get(`[${i}]['catalog_nbr']`).value() === catalog_nbr) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;
@@ -318,7 +318,7 @@ app.get('/api/getCourses/:subject/:catalog_nbr?/:component?', (req, res) => {
 
     if (typeof subject !== "undefined" && typeof catalog_nbr === "undefined" && typeof component === "undefined") {
         while (typeof db.get(`[${i}]`).value() !== "undefined") {
-            if (db.get(`[${i}]['subject']`).includes(subject).value()) {
+            if (db.get(`[${i}]['subject']`).value() === subject) {
                 data[counter] = db.get(`[${i}]`).value();
                 counter++;
                 courseExists = true;
@@ -343,6 +343,38 @@ app.get('/api', (req, res) => {
         i++;
     }
     return res.send(data);
+
+})
+
+app.get('/api/getCoursesByKeyword/:keyword', (req, res) => {
+    const keyword = req.params.keyword;
+
+
+    let data = [];
+
+    let counter = 0;
+    let i = 0;
+
+    if (keyword >= 4) {
+
+
+        while (typeof db.get(`[${i}]`).value() !== "undefined") {
+            if (db.get(`[${i}]['catalog_nbr']`).includes(keyword).value() || db.get(`[${i}]['className']`).includes(keyword).value()) {
+                data[counter] = db.get(`[${i}]`).value();
+                counter++;
+                courseExists = true;
+            }
+            i++;
+        }
+
+        if (courseExists) {
+            return res.send(data);
+        } else {
+            res.status(404).send("Course not found\n")
+        }
+
+    }
+    console.log(counter);
 
 })
 

@@ -30,4 +30,8 @@ export class FirebaseService {
     this.firebaseAuth.signOut();
     localStorage.removeItem('user')
   }
+
+  async updatePass(password: string) {
+    (await this.firebaseAuth.currentUser).updatePassword(password).then(() => alert("password updated"))
+  }
 }

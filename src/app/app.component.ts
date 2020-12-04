@@ -89,6 +89,11 @@ export class AppComponent implements OnInit {
     this.firebaseService.logout();
 
   }
+
+  updatePassword(){
+    const newpassword = sanitize((<HTMLInputElement>document.getElementById("newpassword")).value);
+    this.firebaseService.updatePass(newpassword);
+  }
 }
 
 //Video 12:34

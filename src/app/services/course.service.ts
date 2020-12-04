@@ -47,6 +47,11 @@ export class CourseService {
     return this.http.get<Course[]>(url);
   }
 
+  getKeyword(keyword: string) {
+    const url = `${this.url}getCoursesByKeyword/${keyword}`
+    return this.http.get<Course[]>(url);
+  }
+
 
   addTimetable(timetable) {
     return this.http.post<Timetable>(this.url + 'q4', timetable, httpOptions)

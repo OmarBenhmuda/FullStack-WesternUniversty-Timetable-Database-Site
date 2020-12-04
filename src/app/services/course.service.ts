@@ -71,7 +71,7 @@ export class CourseService {
     return this.http.get(this.url + "getUser/" + email)
   }
 
-  addTimetable(timetable){
-
+  addTimetable(timetable) {
+    return this.http.post(`${this.url}addTimetable`, timetable, httpOptions)
   }
 }

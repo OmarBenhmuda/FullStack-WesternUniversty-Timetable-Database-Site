@@ -38,13 +38,23 @@ export class UserhomeComponent implements OnInit {
   }
 
   addTimetable() {
+    const userData = JSON.parse(localStorage.getItem('user'))
+    const name = sanitize((<HTMLInputElement>document.getElementById("addTimetableName")).value.trim())
+    const desc = sanitize((<HTMLInputElement>document.getElementById("addTimetableDesc")).value.trim())
+    const visiblity = sanitize((<HTMLInputElement>document.getElementById("visibility")).value)
+
     const timetable = {
       timetable: {
-
+        name: name,
+        desc: desc,
+        visibility: visiblity,
+        courses: []
       },
-      email: "",
-      name: ""
+      email: userData.email,
+      name: name
     }
+
+    this.courseService.addTimetable(timetable).subscribe;
   }
 
 }

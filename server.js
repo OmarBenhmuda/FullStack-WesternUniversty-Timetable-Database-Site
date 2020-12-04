@@ -443,7 +443,7 @@ app.post('/api/addReview', (req, res) => {
             }
 
             reviewsdb.get('reviews').push(review).write();
-            res.json({ success: true });
+            return res.json({ success: true });
 
         }
 
@@ -463,13 +463,17 @@ app.post('/api/addTimetable', (req, res) => {
             let j = 0;
             while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
                 if (userdb.get(`users[${i}]['timetable'][${j}]['name']`).value() === name) {
-                    res.status(403).send("Timetable already exists");
+                    return res.status(403).send("Timetable already exists");
                 }
 
                 j++
             }
+
+            userdb.get(`users[${i}]['timetable']`).push(timetable).write();
             return res.status(ok);
         }
         i++;
     }
+    return res.status(404).send("User not found");
+
 })

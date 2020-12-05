@@ -53,11 +53,6 @@ export class CourseService {
   }
 
 
-  findTimetable(timetable) {
-    const url = this.url + 'q6/' + timetable
-    return this.http.get(url);
-
-  }
 
   addUser(user) {
     return this.http.post(this.url + 'addUser', user, httpOptions)
@@ -71,11 +66,20 @@ export class CourseService {
     return this.http.post(`${this.url}addTimetable`, timetable, httpOptions)
   }
 
-  deleteTimetable(info){
+  deleteTimetable(info) {
     return this.http.post(`${this.url}deleteTimetable`, info, httpOptions)
   }
   addCourse(info) {
     return this.http.post(`${this.url}addCourse`, info, httpOptions)
+  }
+
+  findTimetable(email, timetable_name) {
+    return this.http.get(`${this.url}findTimetable/${email}/${timetable_name}`);
+
+  }
+
+  addReview(review) {
+    return this.http.post(`${this.url}addReview`, review, httpOptions)
   }
 
 }

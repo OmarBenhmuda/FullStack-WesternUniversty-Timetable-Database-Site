@@ -109,7 +109,6 @@ export class AppComponent implements OnInit {
   updatePassword() {
     const newpassword = sanitize((<HTMLInputElement>document.getElementById("newpassword")).value);
     this.firebaseService.updatePass(newpassword).catch(e => console.log(e));
-    ;
   }
 
 

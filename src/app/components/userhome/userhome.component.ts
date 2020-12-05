@@ -9,10 +9,14 @@ import { CourseService } from 'src/app/services/course.service';
 })
 export class UserhomeComponent implements OnInit {
   courses: Course[]
+  timetableCourses;
+  timetableName: string;
 
   showAddTimetable = false;
   showAddCourse = false;
   showDeleteTimetable = false;
+  showFindTimetable = false;
+  showAddReview = false;
   constructor(public courseService: CourseService) { }
 
   ngOnInit(): void {
@@ -41,6 +45,13 @@ export class UserhomeComponent implements OnInit {
   deleteTimetableView() {
     this.showDeleteTimetable = !this.showDeleteTimetable;
   }
+  findTimetableView() {
+    this.showFindTimetable = !this.showFindTimetable;
+  }
+  addReviewView() {
+    this.showAddReview = !this.showAddReview;
+  }
+
 
 
   addTimetable() {
@@ -96,6 +107,39 @@ export class UserhomeComponent implements OnInit {
     }
 
     this.courseService.addCourse(info).subscribe();
+
+  }
+
+  findTimetable() {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const name = sanitize((<HTMLInputElement>document.getElementById("findTimetableName")).value.trim())
+
+    this.courseService.findTimetable(userData.email, name).subscribe(res => {
+      this.timetableCourses = res;
+      this.timetableName = name;
+    });
+  }
+
+  addReview() {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const reviewedBy = userData.email;
+    const subject = sanitize((<HTMLInputElement>document.getElementById("subject")).value.trim())
+    const courseCode = sanitize((<HTMLInputElement>document.getElementById("courseCode")).value.trim())
+    const date = new Date();
+    const msg = sanitize((<HTMLInputElement>document.getElementById("msg")).value.trim());
+
+
+    const review = {
+      reviewedBy: reviewedBy,
+      subject: subject,
+      catalog_nbr: courseCode,
+      date: date,
+      msg: msg
+    }
+
+    this.courseService.addReview(review).subscribe
+
+
 
   }
 

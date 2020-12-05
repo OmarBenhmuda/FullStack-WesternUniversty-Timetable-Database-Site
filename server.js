@@ -12,6 +12,7 @@ const reviewsdb = lowDb(new FileSync('./reviews.json'));
 
 //Initializing object to user timetable
 userdb.defaults({ users: [] }).write();
+reviewsdb.defaults({ reviews: [] }).write();
 
 
 
@@ -424,30 +425,29 @@ app.post('/api/makeAdmin', (req, res) => {
 
 
 app.post('/api/addReview', (req, res) => {
-    const reviewedBy = req.params.reviewedBy;
-    const courseSubject = req.params.courseSubject;
-    const courseNbr = req.params.courseNbr;
-    const date = req.params.date;
-    const msg = req.params.mgs;
+    const reviewedBy = req.body.reviewedBy;
+    const subject = req.body.subject;
+    const courseCode = req.body.courseCode;
+    const date = req.body.date;
+    const msg = req.body.msg;
 
-    let i = 0;
-    while (true) {
-        if (typeof reviewsdb.get(`reviews[${i}]`).value() == "undefined") {
-            const review = {
-                id: i,
-                reviewedBy: reviewedBy,
-                courseSubject: courseSubject,
-                courseNbr: courseNbr,
-                date: date,
-                msg: msg
-            }
-
-            reviewsdb.get('reviews').push(review).write();
-            return res.json({ success: true });
-
-        }
-
+    const id = reviewsdb.get('reviews').value().length;
+    const review = {
+        "id": id,
+        "reviewedBy": reviewedBy,
+        "subject": subject,
+        "catalog_nbr": courseCode,
+        "date": date,
+        "msg": msg,
+        "visibility": "hidden"
     }
+
+    reviewsdb.get('reviews').push(review).write();
+    return res.json({ success: true });
+
+
+
+
 
 })
 
@@ -536,10 +536,39 @@ app.post('/api/addCourse', (req, res) => {
                 j++
             }
             return res.status(404).send("Timetable does not exists");
-            
+
         }
         i++;
     }
     return res.status(404).send("User not found");
 
 })
+
+
+app.get('/api/findTimetable/:email/:timetable_name', (req, res) => {
+    const email = req.params.email;
+    const timetable_name = req.params.timetable_name;
+
+    let data = {};
+    let i = 0;
+
+    while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
+        if (userdb.get(`users[${i}]['email']`).value() === email) {
+            let j = 0;
+            while (typeof userdb.get(`users[${i}]['timetables'][${j}]`).value() !== "undefined") {
+                if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === timetable_name) {
+                    data = userdb.get(`users[${i}]['timetables'][${j}]['courses']`)
+                    return res.send(data);
+                }
+
+                j++
+            }
+
+            return res.status(404).send("Timetable Not Found");
+        }
+        i++;
+    }
+    return res.status(404).send("User not found");
+})
+
+

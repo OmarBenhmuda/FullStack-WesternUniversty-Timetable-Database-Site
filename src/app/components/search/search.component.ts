@@ -40,8 +40,6 @@ export class SearchComponent implements OnInit {
       }
       this.courseService.addTimetable(timetable).subscribe()
     }
-
-
   }
 
 
@@ -50,10 +48,10 @@ export class SearchComponent implements OnInit {
     if (timetableInput == '') {
       alert("Please enter a timetable name")
     } else {
-      this.courseService.findTimetable(timetableInput).subscribe(res => {
-        this.timetableCourses = res;
-        this.timetableName = timetableInput;
-      })
+      // this.courseService.findTimetable(timetableInput).subscribe(res => {
+      //   this.timetableCourses = res;
+      //   this.timetableName = timetableInput;
+      // })
     }
   }
 

@@ -9,6 +9,9 @@ import { CourseService } from 'src/app/services/course.service';
 })
 export class HomeComponent implements OnInit {
   courses: Course[]
+  timetableCourses;
+  timetableName: string;
+  
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {

@@ -9,6 +9,7 @@ import { appRoutingModule } from './app-routing.module';
 import { CourseComponent } from './components/course/course.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserhomeComponent } from './components/userhome/userhome.component';
+import { TimetableuiComponent } from './components/timetableui/timetableui.component'
 import { AdminhomeComponent } from './components/adminhome/adminhome.component';
 import { FirebaseService } from './services/firebase.service';
 
@@ -18,7 +19,9 @@ import { FirebaseService } from './services/firebase.service';
     CourseComponent,
     HomeComponent,
     UserhomeComponent,
-    AdminhomeComponent
+    AdminhomeComponent,
+    TimetableuiComponent
+
   ],
   imports: [
     BrowserModule,

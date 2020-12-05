@@ -15,8 +15,8 @@ const ip = window.location.href.substr(0, window.location.href.length - 1)
 })
 export class AdminService {
 
-  // url: string = ip + ':3000/api/'
-  url: string = "http://localhost:3000/api/"
+  url: string = ip + ':3000/api/'
+  // url: string = "http://localhost:3000/api/"
 
   constructor(private http: HttpClient) { }
 

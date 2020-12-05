@@ -22,8 +22,8 @@ export class CourseService {
 
 
 
-  // url: string = ip + ':3000/api/'
-  url: string = "http://localhost:3000/api/"
+  url: string = ip + ':3000/api/'
+  // url: string = "http://localhost:3000/api/"
 
   getAll() {
     return this.http.get<Course[]>(this.url);

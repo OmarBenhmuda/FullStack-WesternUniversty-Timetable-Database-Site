@@ -82,4 +82,8 @@ export class CourseService {
     return this.http.post(`${this.url}addReview`, review, httpOptions)
   }
 
+  changeReviewVisibility(id) {
+    return this.http.post(`${this.url}changeReviewVisibility`, id, httpOptions)
+  }
+
 }

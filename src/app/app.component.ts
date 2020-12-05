@@ -117,6 +117,12 @@ export class AppComponent implements OnInit {
     this.adminService.makeAdmin({ email: email }).subscribe();
 
   }
+
+  changeReviewVisibility() {
+    const id = sanitize((<HTMLInputElement>document.getElementById("newAdminEmail")).value);
+
+    this.courseService.changeReviewVisibility({ id: id }).subscribe();
+  }
 }
 
 //Video 12:34

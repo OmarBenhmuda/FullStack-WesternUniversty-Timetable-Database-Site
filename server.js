@@ -3,8 +3,6 @@ const cors = require("cors");
 const lowDb = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const bodyParser = require("body-parser");
-const { ok } = require("assert");
-
 //Using lowDb to hold the backend data
 const db = lowDb(new FileSync('./Lab3-timetable-data.json'));
 const userdb = lowDb(new FileSync('./user-timetable.json'));
@@ -13,6 +11,16 @@ const reviewsdb = lowDb(new FileSync('./reviews.json'));
 //Initializing object to user timetable
 userdb.defaults({ users: [] }).write();
 reviewsdb.defaults({ reviews: [] }).write();
+
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./se3316lab5-594f3-firebase-adminsdk-vinkx-5f4e868910.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
 
 
 
@@ -413,7 +421,7 @@ app.post('/api/makeAdmin', (req, res) => {
     while (typeof userdb.get(`users[${i}]`).value() !== "undefined") {
         if (userdb.get(`users[${i}]['email']`).value() === email) {
             userdb.set(`users[${i}].type`, 'admin').write();
-            return res.status(ok);
+            return res.json({ success: true });
         }
         i++;
     }
@@ -593,4 +601,22 @@ app.post('/api/changeReviewVisibility', (req, res) => {
     }
     console.log("asd");
     return res.status(404).send("Review not found");
+})
+
+app.post('/api/changeUserAccess', (req, res) => {
+    const email = req.body.email;
+
+    admin
+        .auth()
+        .getUserByEmail(email)
+        .then((userRecord) => {
+            const user = userRecord.toJSON();
+            console.log(user.uid);
+
+            return res.json({ success: true });
+
+        }).catch(e => {
+            return res.status(404).send(e)
+        })
+
 })

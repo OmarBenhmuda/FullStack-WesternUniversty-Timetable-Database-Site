@@ -572,3 +572,17 @@ app.get('/api/findTimetable/:email/:timetable_name', (req, res) => {
 })
 
 
+app.post('/api/changeReviewVisibility', (req, res) => {
+    const id = req.body.id;
+
+    let i = 0;
+    while (typeof reviewsdb.get(`reviews[${i}]`).value() !== "undefined") {
+        if (reviewsdb.get(`reviews[${i}]['id']`).value() == id) {
+            const bool = db.get(`reviews[${i}]['visibility']`).value()
+            db.set(`reviews[${i}]['visibility']`, !bool)
+            return res.json({ success: true });
+        }
+        i++;
+    }
+    return res.status(404).send("Review not found");
+})

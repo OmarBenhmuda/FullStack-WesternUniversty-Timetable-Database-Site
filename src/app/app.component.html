@@ -29,8 +29,11 @@
 
         <!-- if the user is an admin display this div-->
         <div *ngIf="isAdmin">
-            <input id="newAdminEmail" type="email" placeholder="email of new admin..." />
-            <button (click)="makeAdmin()">Make Admin</button>
+            <div class="search">
+                <input id="newAdminEmail" type="email" placeholder="email of new admin..." />
+                <button (click)="makeAdmin()">Make Admin</button>
+            </div>
+
             <div class="search">
                 <input id="reviewid" type="email" placeholder="Review ID..." />
                 <button (click)="changeReviewVisibility()">Change Review Visibility</button>

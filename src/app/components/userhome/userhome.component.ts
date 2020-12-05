@@ -127,17 +127,23 @@ export class UserhomeComponent implements OnInit {
     const courseCode = sanitize((<HTMLInputElement>document.getElementById("courseCode")).value.trim())
     const date = new Date();
     const msg = sanitize((<HTMLInputElement>document.getElementById("msg")).value.trim());
+    console.log(reviewedBy);
+
 
 
     const review = {
-      reviewedBy: reviewedBy,
-      subject: subject,
-      catalog_nbr: courseCode,
-      date: date,
-      msg: msg
+
+      "reviewedBy": reviewedBy,
+      "subject": subject,
+      "catalog_nbr": courseCode,
+      "date": date,
+      "msg": msg
+
+
     }
 
-    this.courseService.addReview(review).subscribe
+
+    this.courseService.addReview(review).subscribe();
 
 
 

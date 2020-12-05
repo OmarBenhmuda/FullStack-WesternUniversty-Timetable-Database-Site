@@ -119,8 +119,7 @@ export class AppComponent implements OnInit {
   }
 
   changeReviewVisibility() {
-    const id = sanitize((<HTMLInputElement>document.getElementById("newAdminEmail")).value);
-
+    const id = sanitize((<HTMLInputElement>document.getElementById("reviewid")).value);
     this.courseService.changeReviewVisibility({ id: id }).subscribe();
   }
 }

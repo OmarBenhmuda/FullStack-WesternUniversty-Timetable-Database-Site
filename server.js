@@ -528,7 +528,7 @@ app.post('/api/addCourse', (req, res) => {
                 if (userdb.get(`users[${i}]['timetables'][${j}]['name']`).value() === name) {
                     console.log("sss")
                     userdb.get(`users[${i}]['timetables'][${j}]['courses']`).push(course).write();
-                    userdb.set(`users[${i}]['timetables'][${j}]['lastEdited']`, date)
+                    userdb.set(`users[${i}]['timetables'][${j}]['lastEdited']`, date).write();
 
                     return res.json({ success: true });
                 }
@@ -578,11 +578,19 @@ app.post('/api/changeReviewVisibility', (req, res) => {
     let i = 0;
     while (typeof reviewsdb.get(`reviews[${i}]`).value() !== "undefined") {
         if (reviewsdb.get(`reviews[${i}]['id']`).value() == id) {
-            const bool = db.get(`reviews[${i}]['visibility']`).value()
-            db.set(`reviews[${i}]['visibility']`, !bool)
+
+            const visibility = reviewsdb.get(`reviews[${i}]['visibility']`).value()
+            let newVisibility
+            if (visibility == "visible") {
+                newVisibility = "hidden"
+            } else {
+                newVisibility = "visible"
+            }
+            reviewsdb.set(`reviews[${i}]['visibility']`, newVisibility).write()
             return res.json({ success: true });
         }
         i++;
     }
+    console.log("asd");
     return res.status(404).send("Review not found");
 })

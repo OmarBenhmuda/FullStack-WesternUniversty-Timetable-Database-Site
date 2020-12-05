@@ -611,7 +611,18 @@ app.post('/api/changeUserAccess', (req, res) => {
         .getUserByEmail(email)
         .then((userRecord) => {
             const user = userRecord.toJSON();
-            console.log(user.uid);
+            if (user.disabled) {
+                admin.auth().updateUser(user.uid, {
+                    disabled: false
+                });
+
+            } else {
+                admin.auth().updateUser(user.uid, {
+                    disabled: true
+                });
+            }
+
+
 
             return res.json({ success: true });
 

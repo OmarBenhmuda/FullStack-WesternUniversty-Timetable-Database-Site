@@ -25,4 +25,10 @@ export class AdminService {
     return this.http.post(url, email, httpOptions)
 
   }
+
+  changeUserAccess(email) {
+    const url = `${this.url}changeUserAccess`
+    return this.http.post(url, email, httpOptions)
+
+  }
 }

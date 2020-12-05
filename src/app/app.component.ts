@@ -122,6 +122,14 @@ export class AppComponent implements OnInit {
     const id = sanitize((<HTMLInputElement>document.getElementById("reviewid")).value);
     this.courseService.changeReviewVisibility({ id: id }).subscribe();
   }
+
+  changeUserAccess() {
+
+    const email = sanitize((<HTMLInputElement>document.getElementById("accessChangeEmail")).value);
+    this.adminService.changeUserAccess({ email: email }).subscribe(res => {
+      alert("Privaleges updated)")
+    });
+  }
 }
 
 //Video 12:34
